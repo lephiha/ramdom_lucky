@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Phi Hà", "role": "SWD", "emoji": "PH", "color": "#ff3c5f", "active": true },
+  { "id": 2, "name": "Hưng", "role": "SWD", "emoji": "TH", "color": "#ffb800", "active": true },
+  { "id": 3, "name": "Linh IT", "role": "IT", "emoji": "L", "color": "#00e5ff", "active": true }
+]
