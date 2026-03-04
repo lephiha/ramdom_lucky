@@ -31,18 +31,30 @@ function renderMembers() {
     return
   }
 
+  // Đếm số lần mỗi dept đã được pick (từ active=false)
+  const deptPickCount = {}
+  members.forEach(m => {
+    if (m.active === false) {
+      deptPickCount[m.department] = (deptPickCount[m.department] || 0) + 1
+    }
+  })
+
   grid.innerHTML = members.map(m => {
-    const picked = m.active === false
+    const maxPicks  = m.maxPicks || 1
+    const picked    = deptPickCount[m.department] || 0
+    const deptDone  = picked >= maxPicks
+    const isDimmed  = m.active === false || deptDone
+
     return `
-      <div class="member-card ${picked ? 'picked' : ''}" id="card-${m.id}">
+      <div class="member-card ${isDimmed ? 'picked' : ''}" id="card-${m.id}">
         <div class="avatar" style="background:${m.color}22;color:${m.color};border:1.5px solid ${m.color}44">
           ${m.emoji}
         </div>
         <div style="flex:1;min-width:0">
           <div class="member-name">${m.name}</div>
-          <div class="member-role">${picked ? '✓ đã chọn' : m.role}</div>
+          <div class="member-role">${isDimmed ? '✓ đã chọn' : (m.department || m.role)}</div>
         </div>
-        ${picked
+        ${isDimmed
           ? `<span style="font-size:14px">✓</span>`
           : `<button class="btn-del" onclick="deleteMember(${m.id}, event)">×</button>`
         }
@@ -105,8 +117,9 @@ async function loadStats() {
   const json = await res.json()
 
   if (json.success) {
+    const TOTAL = 15
     document.getElementById('statTotal').textContent     = json.stats.totalSpins
-    document.getElementById('statRemaining').textContent = json.stats.remaining
+    document.getElementById('statRemaining').textContent = Math.max(0, TOTAL - json.stats.totalSpins)
     document.getElementById('statUnique').textContent    = json.stats.uniquePicked
   }
 }
@@ -138,6 +151,13 @@ async function loadHistory() {
 async function resetAll() {
   if (!confirm('Reset lại tất cả? Mọi người sẽ có thể được chọn lại.')) return
 
+  // Dừng animation đang chạy nếu có
+  if (window._scrambleInterval) clearInterval(window._scrambleInterval)
+  if (window._revealTimer)      clearTimeout(window._revealTimer)
+  window._scrambleInterval = null
+  window._revealTimer      = null
+  isSpinning = false
+
   const res  = await fetch(`${API}/spin/reset`, {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -147,11 +167,23 @@ async function resetAll() {
 
   if (json.success) {
     showToast(json.message, 'success')
+
+    // Reset UI về trạng thái ban đầu
+    document.getElementById('statTotal').textContent     = 0
+    document.getElementById('statRemaining').textContent = 15
+    document.getElementById('statUnique').textContent    = 0
+    document.getElementById('historyList').innerHTML     = `<div class="empty-hint">Chưa có lượt quay nào</div>`
+    document.getElementById('spinBtn').disabled          = false
+    document.getElementById('skipBtn').style.display     = 'none'
+    document.getElementById('slotDisplay').classList.remove('spinning')
+    document.getElementById('slotDisplay').innerHTML     = `
+      <div class="slot-idle">
+        <div class="slot-idle-text">Sẵn sàng</div>
+      </div>`
+
     await loadMembers()
-    await loadStats()
   }
 }
-
 // ── Spin ─────────────────────────────────────
 async function startSpin() {
   if (isSpinning || !members.length) return
@@ -227,87 +259,87 @@ function updateSlotRunning(member) {
 }
 
 // Phase 2: reveal từng chữ mỗi 5 giây
-function suspenseReveal(winner, record) {
-  const d        = document.getElementById('slotDisplay')
-  const fullName = winner.name
-  const chars    = fullName.split('')
-  const realChars = chars.filter(c => c !== ' ').length
-  let revealed   = 0
+  function suspenseReveal(winner, record) {
+  const d          = document.getElementById('slotDisplay')
+  const words      = winner.name.trim().split(' ')
+  const totalWords = words.length
+  let   locked     = 0  // số từ đã khóa
 
   d.classList.remove('spinning')
   document.getElementById('skipBtn').style.display = 'inline-block'
 
-  function buildDisplay(revealCount) {
-    let seen = 0
-    return chars.map(c => {
-      if (c === ' ') return `<span style="display:inline-block;width:12px"></span>`
-      seen++
-      if (seen <= revealCount) {
-        const isNew = seen === revealCount
-        return `<span class="reveal-char ${isNew ? 'reveal-new' : ''}" style="color:${winner.color}">${c}</span>`
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const scrambles = words.map(w => w) // clone
+
+  function randomChar(len) {
+    return Array.from({length: len}, () => CHARS[Math.floor(Math.random() * CHARS.length)]).join('')
+  }
+
+  function buildDisplay() {
+    return words.map((word, i) => {
+      if (i < locked) {
+        return `<span class="reveal-char" style="color:${winner.color}">${word}</span>`
+      } else {
+        return `<span style="color:var(--muted);font-family:'Unbounded',sans-serif;letter-spacing:2px">${scrambles[i]}</span>`
       }
-      return `<span class="reveal-hidden">_</span>`
-    }).join('')
+    }).join('<span style="display:inline-block;width:10px"></span>')
   }
 
   function render() {
-    const done = revealed >= realChars
+    const done = locked >= totalWords
     d.innerHTML = `
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;padding:0 20px">
-        <div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:900;letter-spacing:4px">
-          ${buildDisplay(revealed)}
+        <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;letter-spacing:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;min-height:36px">
+          ${buildDisplay()}
         </div>
-        ${!done ? `<div id="countdownBar"><div id="countdownFill"></div></div>` : ''}
         <div style="font-size:9px;color:var(--muted);letter-spacing:3px;text-transform:uppercase">
-          ${revealed === 0
-            ? 'Ai được chọn?'
-            : !done
-              ? `còn ${realChars - revealed} chữ...`
-              : winner.role
-          }
+          ${done ? winner.department : locked === 0 ? 'Ai được chọn?' : `còn ${totalWords - locked} từ nữa...`}
         </div>
       </div>`
+  }
 
-    // Animate countdown bar
-    if (!done) {
-      const fill = document.getElementById('countdownFill')
-      if (fill) {
-        fill.style.transition = 'none'
-        fill.style.width      = '100%'
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            fill.style.transition = `width 5s linear`
-            fill.style.width      = '0%'
-          })
-        })
-      }
+  // Scramble loop — tất cả chữ chưa khóa đều chạy cùng lúc
+  const scrambleInterval = setInterval(() => {
+    for (let i = locked; i < totalWords; i++) {
+      scrambles[i] = randomChar(words[i].length)
+    }
+    render()
+  }, 80)
+
+  window._scrambleInterval = scrambleInterval
+
+  // Mỗi 3s khóa 1 từ
+  function lockNext() {
+    if (locked >= totalWords) return
+
+    // Khóa từ tiếp theo
+    locked++
+    render()
+
+    if (locked >= totalWords) {
+      // Xong hết — dừng scramble, hiện finalize
+      clearInterval(scrambleInterval)
+      window._scrambleInterval = null
+      window._revealTimer      = null
+      document.getElementById('skipBtn').style.display = 'none'
+      setTimeout(() => finalize(winner, record), 800)
+    } else {
+      window._revealTimer = setTimeout(lockNext, 3000)
     }
   }
 
+  // Bắt đầu khóa từ đầu tiên sau 3s
   render()
-
-  const timer = setInterval(() => {
-    revealed++
-    render()
-
-    if (revealed >= realChars) {
-      clearInterval(timer)
-      window._revealTimer = null
-      setTimeout(() => finalize(winner, record), 1000)
-    }
-  }, 5000)
-
-  // Lưu lại để skip
-  window._revealTimer  = timer
+  window._revealTimer  = setTimeout(lockNext, 3000)
   window._revealWinner = winner
   window._revealRecord = record
-  window._revealTotal  = realChars
 }
 
 function skipReveal() {
-  if (!window._revealTimer) return
-  clearInterval(window._revealTimer)
-  window._revealTimer = null
+  if (window._scrambleInterval) clearInterval(window._scrambleInterval)
+  if (window._revealTimer)      clearTimeout(window._revealTimer)
+  window._revealTimer      = null
+  window._scrambleInterval = null
   finalize(window._revealWinner, window._revealRecord)
 }
 
@@ -319,13 +351,13 @@ function finalize(winner, record) {
   // Hiện trophy + tên đầy đủ
   document.getElementById('slotDisplay').innerHTML = `
     <div class="slot-content">
-      <div style="font-size:28px"></div>
+      <div style="font-size:28px">🏆</div>
       <div class="avatar" style="width:52px;height:52px;font-size:14px;background:${winner.color}22;color:${winner.color};border:2px solid ${winner.color};box-shadow:0 0 20px ${winner.color}55">
         ${winner.emoji}
       </div>
       <div>
         <div class="slot-name" style="color:${winner.color};font-size:18px">${winner.name}</div>
-        <div class="slot-role">${winner.role}</div>
+        <div class="slot-role">${winner.department}</div>
       </div>
     </div>`
 
