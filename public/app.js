@@ -202,7 +202,8 @@ async function startSpin() {
 
   if (!json.success) {
     isSpinning = false
-    return showToast(json.message, 'error')
+    if (json.message) showToast(json.message, 'error')
+    return
   }
 
   const winner = json.winner
@@ -353,12 +354,12 @@ function finalize(winner, record) {
       </div>
       <div style="min-width:0;flex:1">
         <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(32px,5vw,72px);line-height:1.2">${winner.name}</div>
-        <div style="font-size:18px;color:#fff;margin-top:10px;letter-spacing:3px;font-family:'Unbounded',sans-serif;font-weight:700">${winner.department}</div>
+        <div style="font-size:18px;color:var(--muted);margin-top:10px;letter-spacing:3px;font-family:'Unbounded',sans-serif;font-weight:700">${winner.department}</div>
       </div>
     </div>`
 
   launchConfetti(winner.color)
-  showWinnerPopup(winner)  // thay showCinema()
+  showWinnerPopup(winner)  
 
   loadStats()
   loadHistory()
@@ -555,3 +556,6 @@ function toggleList() {
 }
 // ── Start ─────────────────────────────────────
 init()
+document.addEventListener('DOMContentLoaded', () => {
+  toggleList()
+})

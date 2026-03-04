@@ -185,7 +185,7 @@ const server = http.createServer(async (req, res) => {
       })
 
       if (availableDepts.length === 0) {
-        return res.error(400, 'Tất cả phòng ban đã được chọn đủ! Hãy reset.')
+        return res.error(400, '')
       }
 
       // Random dept → random người trong dept đó
