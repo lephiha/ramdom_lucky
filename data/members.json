@@ -137,7 +137,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 13,
@@ -147,7 +147,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 18,
@@ -267,7 +267,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": false
+    "active": true
   },
   {
     "id": 45,
@@ -307,7 +307,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 16,
@@ -317,7 +317,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 35,
@@ -327,7 +327,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 7,
@@ -337,7 +337,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 10,
@@ -347,7 +347,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 59,
@@ -357,7 +357,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 4,
@@ -407,7 +407,7 @@
     "color": "#6b7280",
     "department": "Phòng Kế toán",
     "maxPicks": 2,
-    "active": false
+    "active": true
   },
   {
     "id": 42,
@@ -447,7 +447,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 46,
@@ -457,7 +457,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 14,
@@ -467,7 +467,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 9,
@@ -527,7 +527,7 @@
     "color": "#ef4444",
     "department": "ERP & Data",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 21,
@@ -547,7 +547,7 @@
     "color": "#ef4444",
     "department": "ERP & Data",
     "maxPicks": 1,
-    "active": false
+    "active": true
   },
   {
     "id": 1,
@@ -557,6 +557,6 @@
     "color": "#eab308",
     "department": "Ban Giám đốc",
     "maxPicks": 1,
-    "active": false
+    "active": true
   }
 ]

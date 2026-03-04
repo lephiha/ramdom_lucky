@@ -5,13 +5,18 @@ let isSpinning      = false
 let spinTimer       = null
 let currentWinnerId = null
 
+let totalSpins = parseInt(localStorage.getItem('totalSpins') || 15)
+
 // ── Khởi động ────────────────────────────────
 async function init() {
-  await Promise.all([
-    loadMembers(),
-    loadStats(),
-    loadHistory(),
-  ])
+  await Promise.all([loadMembers(), loadStats(), loadHistory()])
+
+  // Restore settings
+  document.getElementById('totalSpinsDisplay').textContent = totalSpins
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light')
+    document.getElementById('themeToggle').classList.add('on')
+  }
 }
 
 // ── Members ──────────────────────────────────
@@ -115,11 +120,9 @@ async function deleteMember(id, event) {
 async function loadStats() {
   const res  = await fetch(`${API}/spin/stats`)
   const json = await res.json()
-
   if (json.success) {
-    const TOTAL = 15
     document.getElementById('statTotal').textContent     = json.stats.totalSpins
-    document.getElementById('statRemaining').textContent = Math.max(0, TOTAL - json.stats.totalSpins)
+    document.getElementById('statRemaining').textContent = Math.max(0, totalSpins - json.stats.totalSpins)
     document.getElementById('statUnique').textContent    = json.stats.uniquePicked
   }
 }
@@ -469,6 +472,22 @@ function showToast(msg, type = 'success') {
 
   clearTimeout(toastTimer)
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3000)
+}
+
+function changeTotalSpins(delta) {
+  totalSpins = Math.max(1, totalSpins + delta)
+  localStorage.setItem('totalSpins', totalSpins)
+  document.getElementById('totalSpinsDisplay').textContent = totalSpins
+  document.getElementById('statRemaining').textContent     = Math.max(0, totalSpins - parseInt(document.getElementById('statTotal').textContent))
+  // Cập nhật label
+  document.querySelector('#statRemaining').closest('.stat').querySelector('.stat-label').textContent = `Còn lại / ${totalSpins}`
+}
+
+function toggleTheme() {
+  const toggle = document.getElementById('themeToggle')
+  const isOn   = toggle.classList.toggle('on')
+  document.body.classList.toggle('light', isOn)
+  localStorage.setItem('theme', isOn ? 'light' : 'dark')
 }
 
 // ── Start ─────────────────────────────────────

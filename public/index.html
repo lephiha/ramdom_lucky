@@ -67,7 +67,7 @@
         </div>
         <div class="stat">
           <div class="stat-value" id="statRemaining" style="color:var(--accent3)">15</div>
-          <div class="stat-label">Còn lại / 15</div>
+          <div class="stat-label">Còn lại</div>
         </div>
         <div class="stat">
           <div class="stat-value" id="statUnique" style="color:var(--accent2)">0</div>
@@ -83,7 +83,24 @@
       </div>
 
       <button class="btn-reset" onclick="resetAll()">🔄 Reset</button>
-
+      
+      <div class="settings-panel">
+        <div class="panel-title">// Cài đặt</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <label style="font-size:11px;color:var(--muted)">Số lượt quay</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button onclick="changeTotalSpins(-1)" style="background:var(--surface);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px">−</button>
+            <span id="totalSpinsDisplay" style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;min-width:24px;text-align:center">15</span>
+            <button onclick="changeTotalSpins(1)" style="background:var(--surface);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px">+</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+          <label style="font-size:11px;color:var(--muted)">Chế độ sáng</label>
+          <div class="toggle" id="themeToggle" onclick="toggleTheme()">
+            <div class="toggle-knob"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
