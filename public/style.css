@@ -13,10 +13,25 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background:  var(--bg);
-  color:       var(--text);
-  font-family: 'Space Mono', monospace;
-  min-height:  100vh;
+  background:    url('/Backdrop8_3.png') center center / cover no-repeat fixed;
+  background-color: #0a0a0f;
+  color:         var(--text);
+  font-family:   'Space Mono', monospace;
+  min-height:    100vh;
+}
+
+body::before {
+  content:    '';
+  position:   fixed;
+  inset:      0;
+  background: rgba(129, 125, 125, 0.75);
+  z-index:    0;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index:  1;
 }
 
 /* ── Layout ───────────────────────────────── */
