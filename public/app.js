@@ -5,6 +5,8 @@ let isSpinning      = false
 let spinTimer       = null
 let currentWinnerId = null
 
+let totalSpins = parseInt(localStorage.getItem('totalSpins') || 15)
+
 // ── Khởi động ────────────────────────────────
 async function init() {
   await Promise.all([
@@ -12,6 +14,13 @@ async function init() {
     loadStats(),
     loadHistory(),
   ])
+
+  // Restore settings
+  document.getElementById('totalSpinsDisplay').textContent = totalSpins
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light')
+    document.getElementById('themeToggle').classList.add('on')
+  }
 }
 
 // ── Members ──────────────────────────────────
@@ -31,41 +40,29 @@ function renderMembers() {
     return
   }
 
-  // Đếm số lần mỗi dept đã được pick (từ active=false)
-  const deptPickCount = {}
-  members.forEach(m => {
-    if (m.active === false) {
-      deptPickCount[m.department] = (deptPickCount[m.department] || 0) + 1
-    }
-  })
-
   grid.innerHTML = members.map(m => {
-    const maxPicks  = m.maxPicks || 1
-    const picked    = deptPickCount[m.department] || 0
-    const deptDone  = picked >= maxPicks
-    const isDimmed  = m.active === false || deptDone
-
+    const picked = m.active === false
     return `
-      <div class="member-card ${isDimmed ? 'picked' : ''}" id="card-${m.id}">
+      <div class="member-card ${picked ? 'picked' : ''}" id="card-${m.id}">
         <div class="avatar" style="background:${m.color}22;color:${m.color};border:1.5px solid ${m.color}44">
           ${m.emoji}
         </div>
         <div style="flex:1;min-width:0">
           <div class="member-name">${m.name}</div>
-          <div class="member-role">${isDimmed ? '✓ đã chọn' : (m.department || m.role)}</div>
+          <div class="member-role">${picked ? '✓ đã chọn' : (m.role || '')}</div>
         </div>
-        ${isDimmed
+        ${picked
           ? `<span style="font-size:14px">✓</span>`
           : `<button class="btn-del" onclick="deleteMember(${m.id}, event)">×</button>`
         }
       </div>`
   }).join('')
 
-  const remaining           = members.filter(m => m.active !== false).length
-  const badge               = document.getElementById('remainingBadge')
-  badge.textContent         = remaining < members.length ? `${remaining} còn lại` : ''
-  badge.style.color         = 'var(--accent2)'
-  badge.style.fontSize      = '9px'
+  const remaining      = members.filter(m => m.active !== false).length
+  const badge          = document.getElementById('remainingBadge')
+  badge.textContent    = remaining < members.length ? `${remaining} còn lại` : ''
+  badge.style.color    = 'var(--accent2)'
+  badge.style.fontSize = '9px'
 }
 
 async function addMember() {
@@ -74,8 +71,8 @@ async function addMember() {
   const emoji = document.getElementById('inputEmoji').value.trim()
   const color = document.getElementById('inputColor').value
 
-  if (!name || !role) {
-    return showToast('Vui lòng nhập họ tên và chức vụ', 'error')
+  if (!name) {
+    return showToast('Vui lòng nhập họ tên', 'error')
   }
 
   const res  = await fetch(`${API}/members`, {
@@ -86,7 +83,7 @@ async function addMember() {
   const json = await res.json()
 
   if (json.success) {
-    showToast(`✅ Đã thêm ${name}`, 'success')
+    showToast(` Đã thêm ${name}`, 'success')
     document.getElementById('inputName').value  = ''
     document.getElementById('inputRole').value  = ''
     document.getElementById('inputEmoji').value = ''
@@ -115,11 +112,9 @@ async function deleteMember(id, event) {
 async function loadStats() {
   const res  = await fetch(`${API}/spin/stats`)
   const json = await res.json()
-
   if (json.success) {
-    const TOTAL = 15
     document.getElementById('statTotal').textContent     = json.stats.totalSpins
-    document.getElementById('statRemaining').textContent = Math.max(0, TOTAL - json.stats.totalSpins)
+    document.getElementById('statRemaining').textContent = Math.max(0, totalSpins - json.stats.totalSpins)
     document.getElementById('statUnique').textContent    = json.stats.uniquePicked
   }
 }
@@ -432,22 +427,51 @@ function showCinema() {
 
 // ── Confetti ──────────────────────────────────
 function launchConfetti(color) {
-  const colors = [color, '#ff3c5f', '#ffb800', '#00e5ff', '#a855f7']
-  for (let i = 0; i < 50; i++) {
+  const colors = [color, '#ff3c5f', '#ffb800', '#00e5ff', '#a855f7', '#10b981']
+
+  for (let i = 0; i < 80; i++) {
     setTimeout(() => {
-      const el       = document.createElement('div')
-      el.className   = 'confetti-piece'
+      const el    = document.createElement('div')
+      const angle = (Math.random() * 160 + 10) * Math.PI / 180 // góc bắn lên
+      const speed = Math.random() * 120 + 60
+      const vx    = Math.cos(angle) * speed
+      const vy    = -Math.sin(angle) * speed // âm = lên trên
+      const size  = Math.random() * 6 + 3
+      const startX = Math.random() * 100  // % vị trí ngang
+
       el.style.cssText = `
-        left: ${Math.random() * 100}vw;
-        top: -10px;
-        background: ${colors[i % colors.length]};
-        transform: rotate(${Math.random() * 360}deg);
-        animation-duration: ${Math.random() + 1.2}s;
-        animation-delay: ${Math.random() * 0.4}s;
+        position: fixed;
+        width:  ${size}px;
+        height: ${size}px;
+        border-radius: ${Math.random() > .5 ? '50%' : '2px'};
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        left: ${startX}vw;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transition: none;
       `
       document.body.appendChild(el)
-      setTimeout(() => el.remove(), 2500)
-    }, i * 25)
+
+      let x = 0, y = 0, vy2 = vy, tick = 0
+      const gravity = 3
+
+      const anim = setInterval(() => {
+        tick++
+        vy2 += gravity
+        x   += vx * 0.3
+        y   += vy2 * 0.3
+
+        el.style.transform   = `translate(${x}px, ${y}px) rotate(${tick * 8}deg)`
+        el.style.opacity     = Math.max(0, 1 - tick / 60)
+
+        if (tick > 60) {
+          clearInterval(anim)
+          el.remove()
+        }
+      }, 16)
+
+    }, i * 20)
   }
 }
 
@@ -470,6 +494,55 @@ function showToast(msg, type = 'success') {
   clearTimeout(toastTimer)
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3000)
 }
+
+function changeTotalSpins(delta) {
+  totalSpins = Math.max(1, totalSpins + delta)
+  localStorage.setItem('totalSpins', totalSpins)
+  document.getElementById('totalSpinsDisplay').textContent = totalSpins
+  document.getElementById('statRemaining').textContent     = Math.max(0, totalSpins - parseInt(document.getElementById('statTotal').textContent))
+  // Cập nhật label
+  document.querySelector('#statRemaining').closest('.stat').querySelector('.stat-label').textContent = `Còn lại / ${totalSpins}`
+}
+
+function toggleTheme() {
+  const toggle = document.getElementById('themeToggle')
+  const isOn   = toggle.classList.toggle('on')
+  document.body.classList.toggle('light', isOn)
+  localStorage.setItem('theme', isOn ? 'light' : 'dark')
+}
+
+// Floating particles
+function spawnParticles() {
+  const colors = ['#ff3c5f', '#ffb800', '#00e5ff', '#a855f7', '#10b981']
+  for (let i = 0; i < 18; i++) {
+    setTimeout(() => {
+      const el  = document.createElement('div')
+      const size = Math.random() * 6 + 3
+      el.className = 'particle'
+      el.style.cssText = `
+        width:     ${size}px;
+        height:    ${size}px;
+        left:      ${Math.random() * 100}vw;
+        bottom:    -10px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-duration:  ${Math.random() * 10 + 8}s;
+        animation-delay:     ${Math.random() * 5}s;
+        filter: blur(${Math.random() > 0.5 ? 1 : 0}px);
+      `
+      document.body.appendChild(el)
+    }, i * 200)
+  }
+}
+
+spawnParticles()
+// Spawn thêm mỗi 15s
+setInterval(spawnParticles, 15000)
+
+// Bắn pháo hoa mỗi 10s
+setInterval(() => {
+  const colors = ['#ff3c5f', '#ffb800', '#00e5ff', '#a855f7', '#10b981', '#ff6b35']
+  launchConfetti(colors[Math.floor(Math.random() * colors.length)])
+}, 10000)
 
 // ── Start ─────────────────────────────────────
 init()

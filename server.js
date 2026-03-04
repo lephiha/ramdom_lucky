@@ -103,7 +103,7 @@ const server = http.createServer(async (req, res) => {
     // POST /api/members
     if (method === 'POST' && pathname === '/api/members') {
       const { name, role, emoji, color } = req.body
-      if (!name || !role) return res.error(400, 'name và role là bắt buộc')
+      if (!name ) return res.error(400, 'Tên là bắt buộc')
 
       const members = readJSON(MEMBERS_FILE)
       const newId   = members.length > 0
@@ -158,87 +158,36 @@ const server = http.createServer(async (req, res) => {
       return res.json({ success: true, message: `Đã xóa ${deleted.name}` })
     }
 
-    // POST /api/spin — logic theo department
+    // POST /api/spin
     if (method === 'POST' && pathname === '/api/spin') {
-      const allMembers = readJSON(MEMBERS_FILE)
+      const members = readJSON(MEMBERS_FILE)
+      const pool    = members.filter(m => m.active !== false)
 
-      // Gom người còn active theo department
-      const deptMap = {}
-      allMembers.forEach(m => {
-        if (m.active === false) return
-        if (!deptMap[m.department]) deptMap[m.department] = []
-        deptMap[m.department].push(m)
-      })
-
-      // Đếm số lần mỗi dept đã được chọn từ history
-      const history   = readJSON(HISTORY_FILE)
-      const deptCount = {}
-      history.forEach(h => {
-        if (h.department) deptCount[h.department] = (deptCount[h.department] || 0) + 1
-      })
-
-      // Lọc dept còn được phép chọn (chưa đạt maxPicks)
-      const availableDepts = Object.keys(deptMap).filter(dept => {
-        const maxPicks = deptMap[dept][0]?.maxPicks || 1
-        const picked   = deptCount[dept] || 0
-        return picked < maxPicks
-      })
-
-      if (availableDepts.length === 0) {
-        return res.error(400, 'Tất cả phòng ban đã được chọn đủ! Hãy reset.')
+      if (pool.length === 0) {
+        return res.error(400, 'Tất cả đã được chọn! Hãy reset.')
       }
 
-      // Random dept → random người trong dept đó
-      const chosenDept  = availableDepts[Math.floor(Math.random() * availableDepts.length)]
-      const pool        = deptMap[chosenDept]
-      const winner      = pool[Math.floor(Math.random() * pool.length)]
-
-      // Kiểm tra đây có phải lần pick cuối của dept không
-      const maxPicks    = winner.maxPicks || 1
-      const pickedSoFar = deptCount[chosenDept] || 0
-      const isLastPick  = pickedSoFar + 1 >= maxPicks
-
-      if (isLastPick) {
-        // Xóa hết cả phòng
-        allMembers.forEach(m => {
-          if (m.department === chosenDept) m.active = false
-        })
-      } else {
-        // Chỉ xóa người được chọn
-        const widx = allMembers.findIndex(m => m.id === winner.id)
-        if (widx !== -1) allMembers[widx].active = false
-      }
-
-      writeJSON(MEMBERS_FILE, allMembers)
-
-      // Lưu lịch sử
-      const record = {
+      const winner  = pool[Math.floor(Math.random() * pool.length)]
+      const history = readJSON(HISTORY_FILE)
+      const record  = {
         id:          history.length > 0 ? history[0].id + 1 : 1,
         memberId:    winner.id,
         memberName:  winner.name,
-        memberRole:  winner.role,
         memberEmoji: winner.emoji,
         memberColor: winner.color,
-        department:  winner.department,
         spinAt:      new Date().toISOString(),
       }
+
       history.unshift(record)
       if (history.length > 100) history.splice(100)
       writeJSON(HISTORY_FILE, history)
 
-      // Đếm dept còn lại
-      const remaining = [...new Set(
-        allMembers.filter(m => m.active !== false).map(m => m.department)
-      )].length
+      const widx = members.findIndex(m => m.id === winner.id)
+      members[widx].active = false
+      writeJSON(MEMBERS_FILE, members)
 
-      return res.json({
-        success:    true,
-        winner,
-        record,
-        remaining,
-        totalSpins: history.length,
-        message:    `🎯 ${winner.name} (${winner.department}) được chọn!`
-      })
+      const remaining = members.filter(m => m.active !== false).length
+      return res.json({ success: true, winner, record, remaining, message: `🎯 ${winner.name} được chọn!` })
     }
 
     // GET /api/spin/history
@@ -267,16 +216,13 @@ const server = http.createServer(async (req, res) => {
         countMap[h.memberId] = (countMap[h.memberId] || 0) + 1
       })
 
-      const TOTAL_SPINS = 15
-      const remaining   = TOTAL_SPINS - history.length
-
       return res.json({
         success: true,
         stats: {
           totalSpins:   history.length,
           uniquePicked: Object.keys(countMap).length,
           totalMembers: members.length,
-          remaining:    remaining < 0 ? 0 : remaining,
+          remaining:    members.filter(m => m.active !== false).length,
         }
       })
     }

@@ -14,7 +14,6 @@
 
     <div class="header">
       <h1>Vòng quay may mắn</h1>
-      <p>Tosy Robotics - Random Selection System</p>
       <p style="color:var(--accent2);font-size:22px;margin-top:4px;letter-spacing:2px;font-style: bold;">The Liems - Tuyệt đối minh bạch</p>
     </div>
 
@@ -37,7 +36,7 @@
           <input class="form-input" id="inputEmoji" placeholder="Viết tắt (vd: MK)" maxlength="3" />
           <input class="form-input" id="inputColor" type="color" value="#00e5ff" />
         </div>
-        <button class="btn-add" onclick="addMember()">+ Thêm vào phòng ban</button>
+        <button class="btn-add" onclick="addMember()">+ Thêm vào trò chơi</button>
       </div>
     </div>
 
@@ -67,7 +66,7 @@
         </div>
         <div class="stat">
           <div class="stat-value" id="statRemaining" style="color:var(--accent3)">15</div>
-          <div class="stat-label">Còn lại / 15</div>
+          <div class="stat-label" id="remainingLabel">Còn lại</div>
         </div>
         <div class="stat">
           <div class="stat-value" id="statUnique" style="color:var(--accent2)">0</div>
@@ -81,8 +80,25 @@
           <div class="empty-hint">Chưa có lượt quay nào</div>
         </div>
       </div>
-
       <button class="btn-reset" onclick="resetAll()">🔄 Reset</button>
+
+      <div class="settings-panel">
+        <div class="panel-title">// Cài đặt</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <label style="font-size:11px;color:var(--muted)">Số lượt quay</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button onclick="changeTotalSpins(-1)" style="background:var(--surface);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px">−</button>
+            <span id="totalSpinsDisplay" style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;min-width:24px;text-align:center">15</span>
+            <button onclick="changeTotalSpins(1)" style="background:var(--surface);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:16px">+</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+          <label style="font-size:11px;color:var(--muted)">Chế độ sáng</label>
+          <div class="toggle" id="themeToggle" onclick="toggleTheme()">
+            <div class="toggle-knob"></div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
@@ -92,12 +108,24 @@
     bottom: 20px;
     right: 24px;
     font-family: 'Dancing Script', cursive;
-    font-size: 30px;
+    font-size: 40px;
     color: var(--muted);
     opacity: 0.5;
     pointer-events: none;
     z-index: 10;
   ">Lê Phi Hà</div>
+
+  <div style="
+  position: fixed;
+  bottom: 20px;
+  left: 24px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px;
+  color: var(--muted);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 10;
+">Lê Phi Hà</div>
   <script src="app.js"></script>
 </body>
 </html>
