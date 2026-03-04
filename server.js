@@ -160,16 +160,22 @@ const server = http.createServer(async (req, res) => {
 
     // POST /api/spin
     if (method === 'POST' && pathname === '/api/spin') {
-      const members = readJSON(MEMBERS_FILE)
-      const pool    = members.filter(m => m.active !== false)
+      const members  = readJSON(MEMBERS_FILE)
+      const history  = readJSON(HISTORY_FILE)
+      const pool     = members.filter(m => m.active !== false)
+      const maxSpins = parseInt(req.body.maxSpins || 999)  
 
-      if (pool.length === 0) {
-        return res.error(400, 'Tất cả đã được chọn! Hãy reset.')
+      if (history.length >= maxSpins) {
+        return res.json({ success: false, done: true, message: 'Đã hết lượt quay!' })
       }
 
-      const winner  = pool[Math.floor(Math.random() * pool.length)]
-      const history = readJSON(HISTORY_FILE)
-      const record  = {
+      if (pool.length === 0) {
+        return res.json({ success: false, done: true, message: 'Không còn thành viên nào để quay!' }) 
+      }
+
+
+      const winner = pool[Math.floor(Math.random() * pool.length)]
+      const record = {
         id:          history.length > 0 ? history[0].id + 1 : 1,
         memberId:    winner.id,
         memberName:  winner.name,

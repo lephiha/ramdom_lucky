@@ -185,10 +185,10 @@ async function startSpin() {
   isSpinning = true
 
   // Lấy winner từ server
-  const res  = await fetch(`${API}/spin`, {
+  const res = await fetch(`${API}/spin`, {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({}),
+    body:    JSON.stringify({ maxSpins: totalSpins }),
   })
   const json = await res.json()
 
@@ -344,21 +344,19 @@ function finalize(winner, record) {
   document.getElementById('skipBtn').style.display = 'none'
 
   document.getElementById('slotDisplay').innerHTML = `
-    <div class="slot-content">
-      <div style="font-size:28px">🏆</div>
-      <div class="avatar" style="width:52px;height:52px;font-size:14px;background:${winner.color}22;color:${winner.color};border:2px solid ${winner.color};box-shadow:0 0 20px ${winner.color}55">
+    <div style="display:flex;align-items:center;justify-content:center;gap:32px;width:100%;height:100%;padding:0 80px;box-sizing:border-box">
+      <div style="font-size:40px;flex-shrink:0">🏆</div>
+      <div class="avatar" style="width:64px;height:64px;font-size:16px;flex-shrink:0;background:${winner.color}22;color:${winner.color};border:2px solid ${winner.color};box-shadow:0 0 24px ${winner.color}55">
         ${winner.emoji}
       </div>
-      <div>
-        <div class="slot-name" style="color:${winner.color};font-size:18px">${winner.name}</div>
-        <div class="slot-role">${winner.department}</div>
+      <div style="min-width:0;flex:1">
+        <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(20px,3vw,48px);line-height:1.2">${winner.name}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:3px">${winner.department}</div>
       </div>
     </div>`
 
   launchConfetti(winner.color)
-
-  // Popup absolute cinema
-  showCinema()
+  showWinnerPopup(winner)  // thay showCinema()
 
   loadStats()
   loadHistory()
@@ -368,6 +366,61 @@ function finalize(winner, record) {
     document.getElementById('spinBtn').disabled = false
     isSpinning = false
   }, 600)
+}
+
+function showWinnerPopup(winner) {
+  const overlay = document.createElement('div')
+  overlay.style.cssText = `
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.7);
+    z-index: 998;
+    cursor: pointer;
+  `
+
+  const popup = document.createElement('div')
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #12121a;
+    border: 2px solid ${winner.color};
+    box-shadow: 0 0 60px ${winner.color}66;
+    border-radius: 24px;
+    padding: 60px 80px;
+    z-index: 999;
+    text-align: center;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    min-width: 60vw;
+  `
+
+  popup.innerHTML = `
+    <div style="font-size:60px;margin-bottom:24px">🏆</div>
+    <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(36px,6vw,90px);line-height:1.2;margin-bottom:16px">
+      ${winner.name}
+    </div>
+    <div style="font-size:16px;color:var(--muted);letter-spacing:4px;text-transform:uppercase">
+      ${winner.department}
+    </div>
+    <div style="margin-top:32px;font-size:12px;color:var(--muted);opacity:.6">
+      click để đóng
+    </div>
+  `
+
+  document.body.appendChild(overlay)
+  document.body.appendChild(popup)
+
+  requestAnimationFrame(() => {
+    popup.style.transform = 'translate(-50%, -50%) scale(1)'
+  })
+
+  const close = () => {
+    popup.style.transform = 'translate(-50%, -50%) scale(0)'
+    overlay.style.opacity = '0'
+    setTimeout(() => { popup.remove(); overlay.remove() }, 400)
+  }
+
+  overlay.onclick = close
+  popup.onclick   = close
 }
 
 function showCinema() {
@@ -543,6 +596,24 @@ setInterval(() => {
   const colors = ['#ff3c5f', '#ffb800', '#00e5ff', '#a855f7', '#10b981', '#ff6b35']
   launchConfetti(colors[Math.floor(Math.random() * colors.length)])
 }, 10000)
+
+
+function toggleList() {
+  const panel = document.getElementById('panelMembers')
+  const btn   = document.getElementById('toggleListBtn')
+  const container = document.querySelector('.container')
+  const isHidden  = panel.style.display === 'none'
+
+  if (isHidden) {
+    panel.style.display = ''
+    container.style.gridTemplateColumns = '380px 1fr'
+    btn.innerHTML = '☰ ẨN DS'
+  } else {
+    panel.style.display = 'none'
+    container.style.gridTemplateColumns = '1fr'
+    btn.innerHTML = '☰ HIỆN DS'
+  }
+}
 
 // ── Start ─────────────────────────────────────
 init()
