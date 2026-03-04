@@ -353,7 +353,7 @@ function finalize(winner, record) {
       </div>
       <div style="min-width:0;flex:1">
         <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(32px,5vw,72px);line-height:1.2">${winner.name}</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:3px">${winner.department}</div>
+        <div style="font-size:18px;color:#fff;margin-top:10px;letter-spacing:3px;font-family:'Unbounded',sans-serif;font-weight:700">${winner.department}</div>
       </div>
     </div>`
 
@@ -400,7 +400,7 @@ function showWinnerPopup(winner) {
     <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(36px,6vw,90px);line-height:1.2;margin-bottom:16px">
       ${winner.name}
     </div>
-    <div style="font-size:16px;color:var(--muted);letter-spacing:4px;text-transform:uppercase">
+    <div style="font-size:22px;color:#fff;letter-spacing:6px;text-transform:uppercase;margin-top:16px;font-family:'Unbounded',sans-serif;font-weight:700">
       ${winner.department}
     </div>
     <div style="margin-top:32px;font-size:12px;color:var(--muted);opacity:.6">
