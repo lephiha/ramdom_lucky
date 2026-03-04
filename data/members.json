@@ -137,7 +137,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 13,
@@ -147,7 +147,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 18,
@@ -157,7 +157,7 @@
     "color": "#10b981",
     "department": "Phòng OPS",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 38,
@@ -167,7 +167,7 @@
     "color": "#10b981",
     "department": "Phòng OPS",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 55,
@@ -177,7 +177,7 @@
     "color": "#10b981",
     "department": "Phòng OPS",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 58,
@@ -187,7 +187,7 @@
     "color": "#10b981",
     "department": "Phòng OPS",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 15,
@@ -307,7 +307,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 16,
@@ -317,7 +317,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 35,
@@ -327,7 +327,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 7,
@@ -337,7 +337,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 10,
@@ -347,7 +347,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 59,
@@ -357,7 +357,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 4,
