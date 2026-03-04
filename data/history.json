@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "id": 5,
+    "memberId": 26,
+    "memberName": "Nguyễn Thị Phương Mai",
+    "memberRole": "Kế hoạch",
+    "memberEmoji": "PM",
+    "memberColor": "#06b6d4",
+    "department": "Kế hoạch & Hỗ trợ",
+    "spinAt": "2026-03-04T03:02:49.162Z"
+  },
+  {
+    "id": 4,
+    "memberId": 1,
+    "memberName": "Bùi Thị Cẩm Vân",
+    "memberRole": "Giám đốc sản xuất",
+    "memberEmoji": "CV",
+    "memberColor": "#eab308",
+    "department": "Ban Giám đốc",
+    "spinAt": "2026-03-04T03:02:22.442Z"
+  },
+  {
+    "id": 3,
+    "memberId": 13,
+    "memberName": "Nguyễn Thị Thanh Hương",
+    "memberRole": "Cộng tác viên",
+    "memberEmoji": "TH",
+    "memberColor": "#ffb800",
+    "department": "PR & Pháp chế",
+    "spinAt": "2026-03-04T02:58:49.259Z"
+  },
+  {
+    "id": 2,
+    "memberId": 35,
+    "memberName": "Nguyễn Hiền Giang",
+    "memberRole": "Nhân viên mua hàng",
+    "memberEmoji": "HG",
+    "memberColor": "#a855f7",
+    "department": "MH nội địa & KD QT",
+    "spinAt": "2026-03-04T02:58:26.452Z"
+  },
+  {
+    "id": 1,
+    "memberId": 17,
+    "memberName": "Nguyễn Thị Hồng Hạnh",
+    "memberRole": "Cộng Tác viên",
+    "memberEmoji": "HH",
+    "memberColor": "#ef4444",
+    "department": "ERP & Data",
+    "spinAt": "2026-03-04T02:53:42.750Z"
+  }
+]

@@ -10,16 +10,6 @@
     "active": true
   },
   {
-    "id": 24,
-    "name": "Đoàn Thị Mai",
-    "role": "Nhân viên",
-    "emoji": "TM",
-    "color": "#00e5ff",
-    "department": "SCM & Thiết kế",
-    "maxPicks": 1,
-    "active": true
-  },
-  {
     "id": 56,
     "name": "Hoàng Ngọc Thư",
     "role": "CV Cải tiến chuỗi cung ứng",
@@ -147,7 +137,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 13,
@@ -157,7 +147,7 @@
     "color": "#ffb800",
     "department": "PR & Pháp chế",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 18,
@@ -317,7 +307,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 16,
@@ -327,7 +317,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 35,
@@ -337,7 +327,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 7,
@@ -347,7 +337,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 10,
@@ -357,7 +347,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 59,
@@ -367,7 +357,7 @@
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 4,
@@ -457,7 +447,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 46,
@@ -467,7 +457,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 14,
@@ -477,7 +467,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 9,
@@ -537,7 +527,7 @@
     "color": "#ef4444",
     "department": "ERP & Data",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 21,
@@ -557,17 +547,7 @@
     "color": "#ef4444",
     "department": "ERP & Data",
     "maxPicks": 1,
-    "active": true
-  },
-  {
-    "id": 37,
-    "name": "Vũ Thị Linh",
-    "role": "Chuyên viên",
-    "emoji": "TL",
-    "color": "#ef4444",
-    "department": "ERP & Data",
-    "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 1,
@@ -577,16 +557,6 @@
     "color": "#eab308",
     "department": "Ban Giám đốc",
     "maxPicks": 1,
-    "active": true
-  },
-  {
-    "id": 2,
-    "name": "Hồ Thị Quỳnh Nga",
-    "role": "Giám đốc điều hành",
-    "emoji": "QN",
-    "color": "#eab308",
-    "department": "Ban Giám đốc",
-    "maxPicks": 1,
-    "active": true
+    "active": false
   }
 ]

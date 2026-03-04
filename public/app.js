@@ -348,7 +348,6 @@ function finalize(winner, record) {
   document.getElementById(`card-${winner.id}`)?.classList.add('winner')
   document.getElementById('skipBtn').style.display = 'none'
 
-  // Hiện trophy + tên đầy đủ
   document.getElementById('slotDisplay').innerHTML = `
     <div class="slot-content">
       <div style="font-size:28px">🏆</div>
@@ -362,6 +361,10 @@ function finalize(winner, record) {
     </div>`
 
   launchConfetti(winner.color)
+
+  // Popup absolute cinema
+  showCinema()
+
   loadStats()
   loadHistory()
   loadMembers()
@@ -370,6 +373,61 @@ function finalize(winner, record) {
     document.getElementById('spinBtn').disabled = false
     isSpinning = false
   }, 600)
+}
+
+function showCinema() {
+  const memes = [
+    '/image.png',
+  ]
+  const img = memes[Math.floor(Math.random() * memes.length)]
+
+  const popup = document.createElement('div')
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #000;
+    border: 3px solid #fff;
+    border-radius: 16px;
+    padding: 24px 32px;
+    z-index: 999;
+    text-align: center;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    max-width: 340px;
+    width: 90%;
+  `
+  popup.innerHTML = `
+    <div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;margin-bottom:12px">
+      ABSOLUTE CINEMA
+    </div>
+    <img src="${img}" style="width:100%;border-radius:10px;display:block" onerror="this.src='https://i.imgur.com/2jlNmvV.jpeg'"/>
+  `
+
+  // Overlay mờ
+  const overlay = document.createElement('div')
+  overlay.style.cssText = `
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 998;
+    transition: opacity .3s;
+  `
+
+  document.body.appendChild(overlay)
+  document.body.appendChild(popup)
+
+  requestAnimationFrame(() => {
+    popup.style.transform = 'translate(-50%, -50%) scale(1)'
+  })
+
+  // Tự biến mất sau 2.5s
+  setTimeout(() => {
+    popup.style.transform  = 'translate(-50%, -50%) scale(0)'
+    overlay.style.opacity  = '0'
+    setTimeout(() => {
+      popup.remove()
+      overlay.remove()
+    }, 300)
+  }, 2500)
 }
 
 // ── Confetti ──────────────────────────────────
