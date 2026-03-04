@@ -13,18 +13,19 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background:     url('https://res.cloudinary.com/df2upzfb9/image/upload/v1772599193/Backdrop8_3-01_plqlz6.jpg') center center / cover no-repeat fixed;
-  background-color: #0a0a0f;
-  color:         var(--text);
-  font-family:   'Space Mono', monospace;
-  min-height:    100vh;
+  background:      linear-gradient(-45deg, #ffb7c5, #ff8fab, #ffccd5, #ff85a1);
+  background-size: 400% 400%;
+  animation:       bg-shift 10s ease infinite;
+  color:           var(--text);
+  font-family:     'Space Mono', monospace;
+  min-height:      100vh;
 }
 
 body::before {
   content:    '';
   position:   fixed;
   inset:      0;
-  background: rgba(129, 125, 125, 0.75);
+  background: rgba(0, 0, 0, 0.25);
   z-index:    0;
   pointer-events: none;
 }
@@ -36,18 +37,20 @@ body::before {
 
 /* ── Layout ───────────────────────────────── */
 .container {
-  max-width: 1100px;
+  max-width: 1500px;
   margin:    0 auto;
-  padding: 0px 20px 40px;
+  padding: 20px 40px 40px;
   display:   grid;
   grid-template-columns: 1fr 1fr;
   gap:       28px;
+  position: relative;
+  z-index: 1;
 }
 
 .header {
   grid-column: 1 / -1;
   text-align:  center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   padding-top: 10px;
 }
 
@@ -63,7 +66,7 @@ body::before {
 }
 
 .header p {
-  color:          var(--muted);
+  color:         linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));;
   font-size:      11px;
   margin-top:     6px;
   letter-spacing: 3px;
