@@ -197,7 +197,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 19,
@@ -207,7 +207,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 23,
@@ -217,7 +217,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 25,
@@ -227,7 +227,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 31,
@@ -237,7 +237,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 39,
@@ -247,7 +247,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 40,
@@ -257,7 +257,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 41,
@@ -267,7 +267,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 45,
@@ -277,7 +277,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 47,
@@ -287,7 +287,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 57,
@@ -297,7 +297,7 @@
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
     "maxPicks": 2,
-    "active": true
+    "active": false
   },
   {
     "id": 11,
@@ -447,7 +447,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 46,
@@ -457,7 +457,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 14,
@@ -467,7 +467,7 @@
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
     "maxPicks": 1,
-    "active": true
+    "active": false
   },
   {
     "id": 9,
@@ -557,6 +557,6 @@
     "color": "#eab308",
     "department": "Ban Giám đốc",
     "maxPicks": 1,
-    "active": true
+    "active": false
   }
 ]

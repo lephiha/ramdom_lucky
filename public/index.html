@@ -45,7 +45,7 @@
     <div class="spin-panel">
 
       <div class="slot-machine">
-        <div class="slot-label">// Vòng quay ngẫu nhiên</div>
+        <div class="slot-label">Vòng quay ngẫu nhiên</div>
         <div class="slot-display" id="slotDisplay">
           <div class="slot-idle">
             <div class="slot-idle-icon"></div>
@@ -76,7 +76,7 @@
       </div>
 
       <div class="history-panel">
-        <div class="panel-title">// Lịch sử quay</div>
+        <div class="panel-title">Lịch sử quay</div>
         <div class="history-list" id="historyList">
           <div class="empty-hint">Chưa có lượt quay nào</div>
         </div>
@@ -115,6 +115,22 @@
     pointer-events: none;
     z-index: 10;
   ">Lê Phi Hà</div>
+
+  <button id="toggleListBtn" onclick="toggleList()" style="
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--accent3);
+  font-size: 10px;
+  font-family: 'Unbounded', sans-serif;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 100;
+  letter-spacing: 1px;
+">☰ ẨN DS</button>
   <script src="app.js"></script>
 </body>
 </html>

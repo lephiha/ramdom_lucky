@@ -266,13 +266,13 @@ function updateSlotRunning(member) {
   const d          = document.getElementById('slotDisplay')
   const words      = winner.name.trim().split(' ')
   const totalWords = words.length
-  let   locked     = 0  // số từ đã khóa
+  let   locked     = 0
 
   d.classList.remove('spinning')
   document.getElementById('skipBtn').style.display = 'inline-block'
 
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const scrambles = words.map(w => w) // clone
+  const scrambles = words.map(w => w)
 
   function randomChar(len) {
     return Array.from({length: len}, () => CHARS[Math.floor(Math.random() * CHARS.length)]).join('')
@@ -281,27 +281,26 @@ function updateSlotRunning(member) {
   function buildDisplay() {
     return words.map((word, i) => {
       if (i < locked) {
-        return `<span class="reveal-char" style="color:${winner.color}">${word}</span>`
+        return `<span class="reveal-char" style="color:${winner.color};font-size:clamp(24px,4vw,52px);font-weight:900">${word}</span>`
       } else {
-        return `<span style="color:var(--muted);font-family:'Unbounded',sans-serif;letter-spacing:2px">${scrambles[i]}</span>`
+        return `<span style="color:var(--muted);font-family:'Unbounded',sans-serif;font-size:clamp(24px,4vw,52px);font-weight:900;letter-spacing:2px">${scrambles[i]}</span>`
       }
-    }).join('<span style="display:inline-block;width:10px"></span>')
+    }).join('<span style="display:inline-block;width:12px"></span>')
   }
 
   function render() {
     const done = locked >= totalWords
     d.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;padding:0 20px">
-        <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;letter-spacing:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;min-height:36px">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;width:100%;height:100%;padding:0 32px">
+        <div style="font-family:'Unbounded',sans-serif;font-weight:900;letter-spacing:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center">
           ${buildDisplay()}
         </div>
-        <div style="font-size:9px;color:var(--muted);letter-spacing:3px;text-transform:uppercase">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase">
           ${done ? winner.department : locked === 0 ? 'Ai được chọn?' : `còn ${totalWords - locked} từ nữa...`}
         </div>
       </div>`
   }
 
-  // Scramble loop — tất cả chữ chưa khóa đều chạy cùng lúc
   const scrambleInterval = setInterval(() => {
     for (let i = locked; i < totalWords; i++) {
       scrambles[i] = randomChar(words[i].length)
@@ -311,16 +310,12 @@ function updateSlotRunning(member) {
 
   window._scrambleInterval = scrambleInterval
 
-  // Mỗi 3s khóa 1 từ
   function lockNext() {
     if (locked >= totalWords) return
-
-    // Khóa từ tiếp theo
     locked++
     render()
 
     if (locked >= totalWords) {
-      // Xong hết — dừng scramble, hiện finalize
       clearInterval(scrambleInterval)
       window._scrambleInterval = null
       window._revealTimer      = null
@@ -331,7 +326,6 @@ function updateSlotRunning(member) {
     }
   }
 
-  // Bắt đầu khóa từ đầu tiên sau 3s
   render()
   window._revealTimer  = setTimeout(lockNext, 3000)
   window._revealWinner = winner
@@ -352,22 +346,19 @@ function finalize(winner, record) {
   document.getElementById('skipBtn').style.display = 'none'
 
   document.getElementById('slotDisplay').innerHTML = `
-    <div class="slot-content">
-      <div style="font-size:28px">🏆</div>
-      <div class="avatar" style="width:52px;height:52px;font-size:14px;background:${winner.color}22;color:${winner.color};border:2px solid ${winner.color};box-shadow:0 0 20px ${winner.color}55">
+    <div style="display:flex;align-items:center;justify-content:center;gap:42px;width:100%;height:100%;padding:0 80px;box-sizing:border-box">
+      <div style="font-size:40px;flex-shrink:0">🏆</div>
+      <div class="avatar" style="width:64px;height:64px;font-size:20px;flex-shrink:0;background:${winner.color}22;color:${winner.color};border:2px solid ${winner.color};box-shadow:0 0 24px ${winner.color}55">
         ${winner.emoji}
       </div>
-      <div>
-        <div class="slot-name" style="color:${winner.color};font-size:18px">${winner.name}</div>
-        <div class="slot-role">${winner.department}</div>
+      <div style="min-width:0;flex:1">
+        <div style="font-family:'Unbounded',sans-serif;font-weight:900;color:${winner.color};font-size:clamp(32px,5vw,72px);line-height:1.2">${winner.name}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:3px">${winner.department}</div>
       </div>
     </div>`
 
   launchConfetti(winner.color)
-
-  // Popup absolute cinema
   showCinema()
-
   loadStats()
   loadHistory()
   loadMembers()
@@ -490,5 +481,21 @@ function toggleTheme() {
   localStorage.setItem('theme', isOn ? 'light' : 'dark')
 }
 
+function toggleList() {
+  const panel = document.getElementById('panelMembers')
+  const btn   = document.getElementById('toggleListBtn')
+  const container = document.querySelector('.container')
+  const isHidden  = panel.style.display === 'none'
+
+  if (isHidden) {
+    panel.style.display = ''
+    container.style.gridTemplateColumns = '380px 1fr'
+    btn.innerHTML = '☰ ẨN DS'
+  } else {
+    panel.style.display = 'none'
+    container.style.gridTemplateColumns = '1fr'
+    btn.innerHTML = '☰ HIỆN DS'
+  }
+}
 // ── Start ─────────────────────────────────────
 init()
