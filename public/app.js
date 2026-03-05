@@ -128,7 +128,7 @@ async function loadStats() {
 }
 
 async function loadHistory() {
-  const res  = await fetch(`${API}/spin/history?limit=8`)
+  const res  = await fetch(`${API}/spin/history?limit=15`)
   const json = await res.json()
   const list = document.getElementById('historyList')
 
