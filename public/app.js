@@ -118,7 +118,7 @@ async function loadStats() {
 }
 
 async function loadHistory() {
-  const res  = await fetch(`${API}/spin/history?limit=15`)
+  const res  = await fetch(`${API}/spin/history`)
   const json = await res.json()
   const list = document.getElementById('historyList')
 
@@ -130,6 +130,11 @@ async function loadHistory() {
 
   const count = json.data.length
   const cols  = count <= 5 ? 1 : count <= 10 ? 2 : 3
+  const rows = Math.ceil(count / cols)
+
+  const columns = Array.from({ length: cols }, (_, i) =>
+    json.data.slice(i * rows, (i + 1) * rows)
+  )
 
   list.style.cssText = `
     display: grid;
@@ -137,18 +142,23 @@ async function loadHistory() {
     gap: 6px;
     max-height: none;
     overflow: visible;
+    align-items: start;
   `
 
-  list.innerHTML = json.data.map(h => `
-    <div class="history-item">
-      <span class="history-num">#${h.id}</span>
-      <div class="mini-avatar" style="background:${h.memberColor}22;color:${h.memberColor};border:1px solid ${h.memberColor}44">
-        ${h.memberEmoji}
-      </div>
-      <span style="font-size:13px;font-family:'Unbounded',sans-serif;font-weight:700">${h.memberName}</span>
-      <span style="margin-left:auto;font-size:9px;color:var(--accent3)">
-        ${new Date(h.spinAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
-      </span>
+  list.innerHTML = columns.map(col => `
+    <div style="display:flex;flex-direction:column;gap:6px">
+      ${col.map(h => `
+        <div class="history-item">
+          <span class="history-num">#${h.id}</span>
+          <div class="mini-avatar" style="background:${h.memberColor}22;color:${h.memberColor};border:1px solid ${h.memberColor}44">
+            ${h.memberEmoji}
+          </div>
+          <span style="font-size:13px;font-family:'Unbounded',sans-serif;font-weight:700">${h.memberName}</span>
+          <span style="margin-left:auto;font-size:9px;color:var(--accent3)">
+            ${new Date(h.spinAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+          </span>
+        </div>
+      `).join('')}
     </div>
   `).join('')
 }
@@ -192,6 +202,12 @@ async function resetAll() {
 // ── Spin ─────────────────────────────────────
 async function startSpin() {
   if (isSpinning || !members.length) return
+
+  const currentTotal = parseInt(document.getElementById('statTotal').textContent)
+  if (currentTotal >= totalSpins) {
+    showToast('🎉 Đã hết lượt quay!', 'success')
+    return
+  }
   isSpinning = true
 
   const res  = await fetch(`${API}/spin`, {
