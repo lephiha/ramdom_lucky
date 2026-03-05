@@ -11,9 +11,9 @@ let totalSpins = parseInt(localStorage.getItem('totalSpins') || 15)
 async function init() {
   await Promise.all([loadMembers(), loadStats(), loadHistory()])
 
-  // Restore settings
   document.getElementById('totalSpinsDisplay').textContent = totalSpins
-  if (localStorage.getItem('theme') === 'light') {
+  
+  if (localStorage.getItem('theme') !== 'dark') {
     document.body.classList.add('light')
     document.getElementById('themeToggle').classList.add('on')
   }
@@ -143,7 +143,7 @@ async function loadHistory() {
       <div class="mini-avatar" style="background:${h.memberColor}22;color:${h.memberColor};border:1px solid ${h.memberColor}44">
         ${h.memberEmoji}
       </div>
-      <span>${h.memberName}</span>
+      <span style="font-size:18px;font-family:'Unbounded',sans-serif;font-weight:700">${h.memberName}</span>
       <span style="margin-left:auto;font-size:9px;color:var(--accent3)">
         ${new Date(h.spinAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
       </span>
@@ -192,62 +192,31 @@ async function startSpin() {
   if (isSpinning || !members.length) return
   isSpinning = true
 
-  // Lấy winner từ server
   const res  = await fetch(`${API}/spin`, {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({}),
+    body:    JSON.stringify({ maxSpins: totalSpins }),
   })
   const json = await res.json()
 
   if (!json.success) {
     isSpinning = false
-    if (json.message) showToast(json.message, 'error')
+    if (json.done) showToast('🎉 Đã hết lượt quay!', 'success')
+    else if (json.message) showToast(json.message, 'error')
     return
   }
 
-  const winner = json.winner
   document.getElementById('spinBtn').disabled = true
   document.getElementById('slotDisplay').classList.add('spinning')
 
-  // Reset winner cũ
   if (currentWinnerId) {
     document.getElementById(`card-${currentWinnerId}`)?.classList.remove('winner')
   }
-  document.querySelectorAll('.member-card').forEach(c => c.classList.remove('winner', 'spinning-active'))
+  document.querySelectorAll('.member-card').forEach(c => c.classList.remove('winner'))
 
-  // Phase 1: flash qua các thành viên
-  const totalSteps = Math.floor(Math.random() * 20 + 30)
-  let step  = 0
-  let idx   = 0
-  let delay = 60
-
-  const activeMembers = members.filter(m => m.active !== false)
-
-  function tick() {
-    document.querySelectorAll('.member-card').forEach(c => c.classList.remove('spinning-active'))
-
-    const cur = activeMembers[idx % activeMembers.length]
-    document.getElementById(`card-${cur.id}`)?.classList.add('spinning-active')
-    updateSlotRunning(cur)
-
-    step++
-    idx++
-    const remaining = totalSteps - step
-    if (remaining <= 12) delay = 60 + (12 - remaining) * 45
-
-    if (step >= totalSteps) {
-      document.querySelectorAll('.member-card').forEach(c => c.classList.remove('spinning-active'))
-      suspenseReveal(winner, json.record)
-      return
-    }
-
-    spinTimer = setTimeout(tick, delay)
-  }
-
-  tick()
+  
+  suspenseReveal(json.winner, json.record)
 }
-
 function updateSlotRunning(member) {
   const d = document.getElementById('slotDisplay')
   d.innerHTML = `
