@@ -17,6 +17,7 @@ async function init() {
     document.body.classList.add('light')
     document.getElementById('themeToggle').classList.add('on')
   }
+
 }
 
 // ── Members ──────────────────────────────────
@@ -134,8 +135,20 @@ async function loadHistory() {
 
   if (!json.data?.length) {
     list.innerHTML = `<div class="empty-hint">Chưa có lượt quay nào</div>`
+    list.style.cssText = ''
     return
   }
+
+  const count = json.data.length
+  const cols  = count <= 5 ? 1 : count <= 10 ? 2 : 3
+
+  list.style.cssText = `
+    display: grid;
+    grid-template-columns: repeat(${cols}, 1fr);
+    gap: 6px;
+    max-height: none;
+    overflow: visible;
+  `
 
   list.innerHTML = json.data.map(h => `
     <div class="history-item">
@@ -143,7 +156,7 @@ async function loadHistory() {
       <div class="mini-avatar" style="background:${h.memberColor}22;color:${h.memberColor};border:1px solid ${h.memberColor}44">
         ${h.memberEmoji}
       </div>
-      <span style="font-size:18px;font-family:'Unbounded',sans-serif;font-weight:700">${h.memberName}</span>
+      <span style="font-size:13px;font-family:'Unbounded',sans-serif;font-weight:700">${h.memberName}</span>
       <span style="margin-left:auto;font-size:9px;color:var(--accent3)">
         ${new Date(h.spinAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
       </span>
@@ -568,8 +581,18 @@ function launchFireworks() {
     }, delay)
   })
 }
+
+function toggleSettings() {
+  const panel = document.getElementById('settingsPanel')
+  const btn   = document.getElementById('toggleSettingsBtn')
+  const isHidden = panel.style.display === 'none'
+  panel.style.display = isHidden ? '' : 'none'
+  btn.innerHTML = isHidden ? '⚙ ẨN CĐ' : '⚙ CÀI ĐẶT'
+}
 // ── Start ─────────────────────────────────────
 init()
 document.addEventListener('DOMContentLoaded', () => {
   toggleList()
+  toggleSettings()
 })
+

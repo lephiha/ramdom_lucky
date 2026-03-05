@@ -1,7 +1,7 @@
 [
   {
     "id": 5,
-    "name": "Nguyễn Thị Kim Lỉnh",
+    "name": "Nguyễn Thị Kim Linh",
     "role": "Chuyên viên SCM",
     "emoji": "KL",
     "color": "#00e5ff",
@@ -450,16 +450,6 @@
     "active": true
   },
   {
-    "id": 46,
-    "name": "Nguyễn Mỹ Linh",
-    "role": "Nhân viên Kế hoạch",
-    "emoji": "ML",
-    "color": "#06b6d4",
-    "department": "Kế hoạch & Hỗ trợ",
-    "maxPicks": 1,
-    "active": true
-  },
-  {
     "id": 14,
     "name": "Phạm Quỳnh Châu",
     "role": "Chuyên viên Hỗ trợ",
@@ -476,7 +466,7 @@
     "emoji": "TH",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 1,
+    "maxPicks": 2,
     "active": true
   },
   {
@@ -486,7 +476,7 @@
     "emoji": "TT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 1,
+    "maxPicks": 2,
     "active": true
   },
   {
@@ -496,7 +486,7 @@
     "emoji": "TH",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 1,
+    "maxPicks": 2,
     "active": true
   },
   {
@@ -506,7 +496,7 @@
     "emoji": "KT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 1,
+    "maxPicks": 2,
     "active": true
   },
   {
@@ -516,7 +506,7 @@
     "emoji": "TT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 1,
+    "maxPicks": 2,
     "active": true
   },
   {
@@ -561,22 +551,12 @@
   },
   {
     "id": 1,
-    "name": "Bùi Thị Cẩm Vân",
-    "role": "Giám đốc sản xuất",
+    "name": "Lê Minh Thu",
+    "role": "Tạp vụ",
     "emoji": "CV",
     "color": "#eab308",
-    "department": "Ban Giám đốc",
-    "maxPicks": 1,
-    "active": true
-  },
-  {
-    "id": 1,
-    "name": "Hồ Thị Quỳnh Nga",
-    "role": "Giám đốc điều hành",
-    "emoji": "QN",
-    "color": "#eab308",
-    "department": "Ban Giám đốc",
-    "maxPicks": 1,
+    "department": "Phòng HCNS",
+    "maxPicks": 2,
     "active": true
   }
 ]
