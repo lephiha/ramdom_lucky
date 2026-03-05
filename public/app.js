@@ -402,7 +402,7 @@ function showWinnerPopup(winner) {
       ${winner.name}
     </div>
     <div style="font-size:22px;color:#fff;letter-spacing:6px;text-transform:uppercase;margin-top:16px;font-family:'Unbounded',sans-serif;font-weight:700">
-      ${winner.department}
+      ${winner.department} · ${winner.role}
     </div>
     <div style="margin-top:32px;font-size:12px;color:var(--muted);opacity:.6">
       click để đóng
