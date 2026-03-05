@@ -37,19 +37,8 @@ function renderMembers() {
     return
   }
 
-  // Đếm số lần mỗi dept đã được pick (từ active=false)
-  const deptPickCount = {}
-  members.forEach(m => {
-    if (m.active === false) {
-      deptPickCount[m.department] = (deptPickCount[m.department] || 0) + 1
-    }
-  })
-
   grid.innerHTML = members.map(m => {
-    const maxPicks  = m.maxPicks || 1
-    const picked    = deptPickCount[m.department] || 0
-    const deptDone  = picked >= maxPicks
-    const isDimmed  = m.active === false || deptDone
+    const isDimmed = m.active === false
 
     return `
       <div class="member-card ${isDimmed ? 'picked' : ''}" id="card-${m.id}">
@@ -67,11 +56,11 @@ function renderMembers() {
       </div>`
   }).join('')
 
-  const remaining           = members.filter(m => m.active !== false).length
-  const badge               = document.getElementById('remainingBadge')
-  badge.textContent         = remaining < members.length ? `${remaining} còn lại` : ''
-  badge.style.color         = 'var(--accent2)'
-  badge.style.fontSize      = '9px'
+  const remaining      = members.filter(m => m.active !== false).length
+  const badge          = document.getElementById('remainingBadge')
+  badge.textContent    = remaining < members.length ? `${remaining} còn lại` : ''
+  badge.style.color    = 'var(--accent2)'
+  badge.style.fontSize = '9px'
 }
 
 async function addMember() {

@@ -6,7 +6,6 @@
     "emoji": "KL",
     "color": "#00e5ff",
     "department": "SCM & Thiết kế 2D",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -16,7 +15,6 @@
     "emoji": "NT",
     "color": "#00e5ff",
     "department": "SCM & Thiết kế 2D",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -26,7 +24,6 @@
     "emoji": "TD",
     "color": "#00e5ff",
     "department": "SCM & Thiết kế 2D",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -36,7 +33,6 @@
     "emoji": "TH",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -46,7 +42,6 @@
     "emoji": "KÁ",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -56,7 +51,6 @@
     "emoji": "HN",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -66,7 +60,6 @@
     "emoji": "TH",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -76,7 +69,6 @@
     "emoji": "LV",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -86,7 +78,6 @@
     "emoji": "AĐ",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -96,7 +87,6 @@
     "emoji": "TY",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -106,7 +96,6 @@
     "emoji": "TH",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -116,7 +105,6 @@
     "emoji": "LP",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -126,7 +114,6 @@
     "emoji": "TM",
     "color": "#ff6b35",
     "department": "Phòng SMT",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -136,7 +123,6 @@
     "emoji": "HT",
     "color": "#ffb800",
     "department": "PR & Pháp chế",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -146,7 +132,6 @@
     "emoji": "TH",
     "color": "#ffb800",
     "department": "PR & Pháp chế",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -156,7 +141,6 @@
     "emoji": "TP",
     "color": "#10b981",
     "department": "Phòng OPS",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -166,7 +150,6 @@
     "emoji": "TG",
     "color": "#10b981",
     "department": "Phòng OPS",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -176,7 +159,6 @@
     "emoji": "TL",
     "color": "#10b981",
     "department": "Phòng OPS",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -186,7 +168,6 @@
     "emoji": "QT",
     "color": "#10b981",
     "department": "Phòng OPS",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -196,7 +177,6 @@
     "emoji": "TB",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -206,7 +186,6 @@
     "emoji": "TS",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -216,7 +195,6 @@
     "emoji": "TT",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -226,7 +204,6 @@
     "emoji": "NÁ",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -236,7 +213,6 @@
     "emoji": "TM",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -246,7 +222,6 @@
     "emoji": "PM",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -256,7 +231,6 @@
     "emoji": "QT",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -266,7 +240,6 @@
     "emoji": "PN",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -276,7 +249,6 @@
     "emoji": "LA",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -286,7 +258,6 @@
     "emoji": "KT",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -296,7 +267,6 @@
     "emoji": "YN",
     "color": "#3b82f6",
     "department": "Mua hàng QT1",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -306,7 +276,6 @@
     "emoji": "AP",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -316,7 +285,6 @@
     "emoji": "LS",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -326,7 +294,6 @@
     "emoji": "HG",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -336,7 +303,6 @@
     "emoji": "TT",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -346,7 +312,6 @@
     "emoji": "TM",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -356,7 +321,6 @@
     "emoji": "HN",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -366,7 +330,6 @@
     "emoji": "PL",
     "color": "#a8b5c8",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -376,7 +339,6 @@
     "emoji": "KN",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -386,7 +348,6 @@
     "emoji": "TH",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -396,7 +357,6 @@
     "emoji": "HT",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -406,7 +366,6 @@
     "emoji": "TH",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -416,7 +375,6 @@
     "emoji": "KT",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -426,7 +384,6 @@
     "emoji": "TN",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -436,7 +393,6 @@
     "emoji": "NH",
     "color": "#fb7185",
     "department": "Phòng Kế toán",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -446,7 +402,6 @@
     "emoji": "PM",
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -456,7 +411,6 @@
     "emoji": "QC",
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -466,7 +420,6 @@
     "emoji": "TH",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -476,7 +429,6 @@
     "emoji": "TT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -486,7 +438,6 @@
     "emoji": "TH",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -496,7 +447,6 @@
     "emoji": "KT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -506,7 +456,6 @@
     "emoji": "TT",
     "color": "#f43f5e",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   },
   {
@@ -516,7 +465,6 @@
     "emoji": "HH",
     "color": "#ef4444",
     "department": "ERP & Data",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -526,7 +474,6 @@
     "emoji": "PL",
     "color": "#f97316",
     "department": "Phòng Điện tử",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -536,7 +483,6 @@
     "emoji": "AT",
     "color": "#ef4444",
     "department": "ERP & Data",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -546,7 +492,6 @@
     "emoji": "VL",
     "color": "#ef4444",
     "department": "ERP & Data",
-    "maxPicks": 1,
     "active": true
   },
   {
@@ -556,7 +501,6 @@
     "emoji": "CV",
     "color": "#eab308",
     "department": "Phòng HCNS",
-    "maxPicks": 2,
     "active": true
   }
 ]
