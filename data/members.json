@@ -2,10 +2,10 @@
   {
     "id": 5,
     "name": "Nguyễn Thị Kim Lỉnh",
-    "role": "Chuyên viên",
+    "role": "Chuyên viên SCM",
     "emoji": "KL",
     "color": "#00e5ff",
-    "department": "SCM & Thiết kế",
+    "department": "SCM & Thiết kế 2D",
     "maxPicks": 1,
     "active": true
   },
@@ -15,17 +15,17 @@
     "role": "CV Cải tiến chuỗi cung ứng",
     "emoji": "NT",
     "color": "#00e5ff",
-    "department": "SCM & Thiết kế",
+    "department": "SCM & Thiết kế 2D",
     "maxPicks": 1,
     "active": true
   },
   {
     "id": 3,
     "name": "Nghiêm Thị Thanh Dung",
-    "role": "Chuyên viên",
+    "role": "Chuyên viên thiết kế 2D",
     "emoji": "TD",
     "color": "#00e5ff",
-    "department": "SCM & Thiết kế",
+    "department": "SCM & Thiết kế 2D",
     "maxPicks": 1,
     "active": true
   },
@@ -132,7 +132,7 @@
   {
     "id": 8,
     "name": "Phạm Huyền Trang",
-    "role": "Trưởng phòng",
+    "role": "Trưởng phòng MKT & PR",
     "emoji": "HT",
     "color": "#ffb800",
     "department": "PR & Pháp chế",
@@ -142,7 +142,7 @@
   {
     "id": 13,
     "name": "Nguyễn Thị Thanh Hương",
-    "role": "Cộng tác viên",
+    "role": "Cộng tác viên Pháp chế",
     "emoji": "TH",
     "color": "#ffb800",
     "department": "PR & Pháp chế",
@@ -302,7 +302,7 @@
   {
     "id": 11,
     "name": "Nguyễn Thị Anh Phượng",
-    "role": "Trưởng phòng",
+    "role": "Trưởng phòng MH nội địa",
     "emoji": "AP",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
@@ -312,7 +312,7 @@
   {
     "id": 16,
     "name": "Nguyễn Thị Lam Sơn",
-    "role": "Nhân viên mua hàng",
+    "role": "Nhân viên mua hàng nội địa",
     "emoji": "LS",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
@@ -322,7 +322,7 @@
   {
     "id": 35,
     "name": "Nguyễn Hiền Giang",
-    "role": "Nhân viên mua hàng",
+    "role": "Nhân viên mua hàng nội địa",
     "emoji": "HG",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
@@ -332,7 +332,7 @@
   {
     "id": 7,
     "name": "Trịnh Thị Thu",
-    "role": "Trưởng phòng",
+    "role": "Trưởng phòng KD quốc tế",
     "emoji": "TT",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
@@ -342,7 +342,7 @@
   {
     "id": 10,
     "name": "Lê Ngọc Tú Mai",
-    "role": "Trưởng phòng",
+    "role": "Trưởng phòng KD quốc tế",
     "emoji": "TM",
     "color": "#a855f7",
     "department": "MH nội địa & KD QT",
@@ -452,7 +452,7 @@
   {
     "id": 46,
     "name": "Nguyễn Mỹ Linh",
-    "role": "Nhân viên",
+    "role": "Nhân viên Kế hoạch",
     "emoji": "ML",
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
@@ -462,7 +462,7 @@
   {
     "id": 14,
     "name": "Phạm Quỳnh Châu",
-    "role": "Chuyên viên",
+    "role": "Chuyên viên Hỗ trợ",
     "emoji": "QC",
     "color": "#06b6d4",
     "department": "Kế hoạch & Hỗ trợ",
@@ -522,7 +522,7 @@
   {
     "id": 17,
     "name": "Nguyễn Thị Hồng Hạnh",
-    "role": "Cộng Tác viên",
+    "role": "Cộng Tác viên ERP",
     "emoji": "HH",
     "color": "#ef4444",
     "department": "ERP & Data",
@@ -542,8 +542,18 @@
   {
     "id": 22,
     "name": "Nguyễn Thị Anh Thư",
-    "role": "Nhân viên nhập liệu",
+    "role": "Nhân viên nhập liệu ",
     "emoji": "AT",
+    "color": "#ef4444",
+    "department": "ERP & Data",
+    "maxPicks": 1,
+    "active": true
+  },
+  {
+    "id": 37,
+    "name": "Vũ Thị Linh",
+    "role": "Chuyên viên nhập liệu ",
+    "emoji": "VL",
     "color": "#ef4444",
     "department": "ERP & Data",
     "maxPicks": 1,
