@@ -158,77 +158,95 @@ const server = http.createServer(async (req, res) => {
       return res.json({ success: true, message: `Đã xóa ${deleted.name}` })
     }
 
-    // POST /api/spin — xác suất 
+    // POST /api/spin — quay random
     if (method === 'POST' && pathname === '/api/spin') {
+
       const members = readJSON(MEMBERS_FILE)
       const history = readJSON(HISTORY_FILE)
 
-      // Tất cả phòng ban
-      const allDepts      = [...new Set(members.map(m => m.department))]
-      // Phòng đã có người được chọn (từ history)
-      const pickedDepts   = new Set(history.map(h => h.department).filter(Boolean))
-      // Phòng chưa có ai được chọn
-      const unpickedDepts = allDepts.filter(d => !pickedDepts.has(d))
+      // tất cả phòng ban
+      const allDepts = [...new Set(members.map(m => m.department))]
 
-      let pool
+      // phòng đã có người được chọn
+      const pickedDepts = new Set(
+        history.map(h => h.department).filter(Boolean)
+      )
+
+      // phòng chưa có ai trúng
+      const unpickedDepts = allDepts.filter(
+        d => !pickedDepts.has(d)
+      )
+
+      let pool = []
 
       if (unpickedDepts.length > 0) {
-        // Phase 1: đảm bảo mỗi phòng có ít nhất 1 người
-        // Chỉ random trong các phòng chưa được chọn
-        pool = members.filter(m => m.active !== false && unpickedDepts.includes(m.department))
+        // Phase 1: chỉ random phòng chưa có người trúng
+        pool = members.filter(m =>
+          m.active !== false &&
+          unpickedDepts.includes(m.department)
+        )
       } else {
-        // Phase 2: weighted random — phòng nhiều người xác suất cao hơn
-        // Pi = số người còn active của phòng i / tổng người còn active
-        const activeMembers = members.filter(m => m.active !== false)
-        const deptSize = {}
-        activeMembers.forEach(m => {
-          deptSize[m.department] = (deptSize[m.department] || 0) + 1
-        })
-
-        pool = []
-        activeMembers.forEach(m => {
-          const weight = deptSize[m.department] || 1
-          for (let i = 0; i < weight; i++) pool.push(m)
-        })
+        // Phase 2: random toàn bộ người còn active
+        pool = members.filter(m => m.active !== false)
       }
 
+      // nếu không còn ai
       if (pool.length === 0) {
-        return res.json({ success: false, done: true, message: '' })
+        return res.json({
+          success: false,
+          done: true,
+          message: 'Không còn người để quay'
+        })
       }
 
+      // random winner
       const winner = pool[Math.floor(Math.random() * pool.length)]
 
+      // cập nhật member
       const widx = members.findIndex(m => m.id === winner.id)
-      members[widx].active = false
+      if (widx !== -1) {
+        members[widx].active = false
+      }
+
       writeJSON(MEMBERS_FILE, members)
 
+      // lưu history
       const record = {
-        id:          history.length > 0 ? history[0].id + 1 : 1,
-        memberId:    winner.id,
-        memberName:  winner.name,
-        memberRole:  winner.role,
+        id: history.length > 0 ? history[0].id + 1 : 1,
+        memberId: winner.id,
+        memberName: winner.name,
+        memberRole: winner.role,
         memberEmoji: winner.emoji,
         memberColor: winner.color,
-        department:  winner.department,
-        spinAt:      new Date().toISOString(),
+        department: winner.department,
+        spinAt: new Date().toISOString(),
       }
+
       history.unshift(record)
-      if (history.length > 100) history.splice(100)
+
+      if (history.length > 100) {
+        history.splice(100)
+      }
+
       writeJSON(HISTORY_FILE, history)
 
+      // số phòng còn người active
       const remaining = [...new Set(
-        members.filter(m => m.active !== false).map(m => m.department)
+        members
+          .filter(m => m.active !== false)
+          .map(m => m.department)
       )].length
 
       return res.json({
-        success:    true,
+        success: true,
         winner,
         record,
         remaining,
         totalSpins: history.length,
-        message:    `🎯 ${winner.name} (${winner.department}) được chọn!`
+        message: `🎯 ${winner.name} (${winner.department}) được chọn!`
       })
-  }
+    }
+
 
     // GET /api/spin/history
     if (method === 'GET' && pathname === '/api/spin/history') {
