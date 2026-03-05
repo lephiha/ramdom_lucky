@@ -383,6 +383,7 @@ function showWinnerPopup(winner) {
 
   requestAnimationFrame(() => {
     popup.style.transform = 'translate(-50%, -50%) scale(1)'
+    launchFireworks()
   })
 
   const close = () => {
@@ -522,6 +523,50 @@ function toggleList() {
     container.style.gridTemplateColumns = '1fr'
     btn.innerHTML = '☰ HIỆN DS'
   }
+}
+
+function launchFireworks() {
+  const colors = ['#ff3c5f', '#ffb800', '#00e5ff', '#a855f7', '#10b981', '#ff6b35', '#ff85a1']
+  const delays = [0, 600, 1200]
+  
+  delays.forEach(delay => {
+    setTimeout(() => {
+      for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+          const el    = document.createElement('div')
+          const angle = (Math.random() * 160 + 10) * Math.PI / 180
+          const speed = Math.random() * 140 + 80
+          const vx    = Math.cos(angle) * speed
+          const vy    = -Math.sin(angle) * speed
+          const size  = Math.random() * 7 + 3
+          const color = colors[Math.floor(Math.random() * colors.length)]
+
+          el.style.cssText = `
+            position: fixed;
+            width: ${size}px; height: ${size}px;
+            border-radius: ${Math.random() > .5 ? '50%' : '2px'};
+            background: ${color};
+            left: ${20 + Math.random() * 60}vw;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+          `
+          document.body.appendChild(el)
+
+          let x = 0, y = 0, vy2 = vy, tick = 0
+          const anim = setInterval(() => {
+            tick++
+            vy2 += 2.5
+            x += vx * 0.3
+            y += vy2 * 0.3
+            el.style.transform = `translate(${x}px, ${y}px) rotate(${tick * 8}deg)`
+            el.style.opacity   = Math.max(0, 1 - tick / 65)
+            if (tick > 65) { clearInterval(anim); el.remove() }
+          }, 16)
+        }, i * 15)
+      }
+    }, delay)
+  })
 }
 // ── Start ─────────────────────────────────────
 init()
